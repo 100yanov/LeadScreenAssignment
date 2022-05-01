@@ -2,3 +2,8 @@
 LeadScreenAssignment/obj
 .vs
 LeadScreenAssignment/LeadScreenAssignment/obj
+LeadScreenAssignment.Core/bin
+LeadScreenAssignment.Core/obj
+LeadScreenAssignment.Persistence/bin
+LeadScreenAssignment.Persistence/obj
+LeadScreenAssignment/bin
