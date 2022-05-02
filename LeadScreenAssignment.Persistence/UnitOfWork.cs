@@ -13,13 +13,11 @@ namespace LeadScreenAssignment.Persistence
         private readonly DbContext context;
 
         public UnitOfWork(DbContext context,
-            ILeadRepository leadRepository,
-            IPinCodeRepository pinCodeRepository,
+            ILeadRepository leadRepository,            
             ISubAreaRepository subAreaRepository)
         {
             this.context = context;
             this.Leads = leadRepository;
-            this.PinCodes = pinCodeRepository;
             this.SubAreas = subAreaRepository;
         }
 
@@ -27,7 +25,7 @@ namespace LeadScreenAssignment.Persistence
 
         public ISubAreaRepository SubAreas { get; }
 
-        public IPinCodeRepository PinCodes { get; }
+        
 
         public int Complete()=>
             this.context.SaveChanges();

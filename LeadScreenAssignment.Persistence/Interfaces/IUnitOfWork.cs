@@ -10,7 +10,7 @@ namespace LeadScreenAssignment.Persistence.Interfaces
     {
         ILeadRepository Leads { get; }
         ISubAreaRepository SubAreas { get; }
-        IPinCodeRepository PinCodes { get; }
+      
         int Complete();
     }
 }

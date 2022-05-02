@@ -12,6 +12,6 @@ namespace LeadScreenAssignment.Core.Entities
         public string LastName { get; set; }
         
         public Guid SubAreaId { get; set; }
-        public SubAreaEntity SubArea { get; set; }
+        public virtual SubAreaEntity SubArea { get; set; }
     }
 }

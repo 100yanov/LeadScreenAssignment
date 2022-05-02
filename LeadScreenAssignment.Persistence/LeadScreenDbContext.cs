@@ -15,18 +15,12 @@ namespace LeadScreenAssignment.Persistence
         {
         }
 
-        public DbSet<LeadEntity> Leads { get; set; }
-        public DbSet<PinCodeEntity> PinCodes { get; set; }
+        public DbSet<LeadEntity> Leads { get; set; }     
         public DbSet<SubAreaEntity> SubAreas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SubAreaEntity>().HasOne(e => e.PinCode)
-                .WithMany(e => e.SubAreas)
-                .HasForeignKey(e => e.PinCodeId)
-                .IsRequired();
-
             modelBuilder.Entity<LeadEntity>()                
                 .HasOne(e => e.SubArea)
                 .WithMany(e => e.Leads)
@@ -36,12 +30,14 @@ namespace LeadScreenAssignment.Persistence
             modelBuilder
                 .Entity<LeadEntity>()
                 .Property(e=>e.FirstName)
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .IsRequired();
 
             modelBuilder
                 .Entity<LeadEntity>()
                 .Property(e => e.LastName)
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .IsRequired();
 
             modelBuilder
                .Entity<SubAreaEntity>()
@@ -50,8 +46,8 @@ namespace LeadScreenAssignment.Persistence
                .IsRequired();
 
             modelBuilder
-             .Entity<PinCodeEntity>()
-             .Property(e => e.Name)
+             .Entity<SubAreaEntity>()
+             .Property(e => e.PinCode)
              .HasMaxLength(6)
              .IsRequired();
 

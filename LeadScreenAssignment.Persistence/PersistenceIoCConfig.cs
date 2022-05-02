@@ -33,7 +33,6 @@ namespace LeadScreenAssignment.Persistence
         public void RegisterDependencies()
         {
             container.Register<ILeadRepository, LeadRepository>(Lifestyle.Scoped);
-            container.Register<IPinCodeRepository, PinCodeRepository>(Lifestyle.Scoped);
             container.Register<ISubAreaRepository, SubAreaRepository>(Lifestyle.Scoped);
             container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
 			

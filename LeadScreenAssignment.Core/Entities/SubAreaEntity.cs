@@ -3,8 +3,7 @@
     public class SubAreaEntity : BaseEntity
     {
         public string Name { get; set; }
-        public Guid PinCodeId { get; set; }
-        public PinCodeEntity PinCode { get; set; }
-        public ICollection<LeadEntity> Leads { get; set; }
+        public string PinCode { get; set; }
+        public virtual ICollection<LeadEntity> Leads { get; set; }
     }
 }
