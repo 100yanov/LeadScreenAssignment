@@ -26,8 +26,4 @@
     <ProjectReference Include="..\LeadScreenAssignment.Core\LeadScreenAssignment.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
