@@ -1,6 +1,7 @@
 ﻿
 namespace LeadScreenAssignment.Persistence
 {
+    
     public class DbInitializer
     {
         public DbInitializer()

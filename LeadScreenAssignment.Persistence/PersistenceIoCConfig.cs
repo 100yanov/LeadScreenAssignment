@@ -6,7 +6,7 @@ using SimpleInjector;
 
 namespace LeadScreenAssignment.Persistence
 {
-    public class PersistenceIoCConfig : IIoCConfig
+    public class PersistenceIoCConfig
     {        
         private string connectionString;
 

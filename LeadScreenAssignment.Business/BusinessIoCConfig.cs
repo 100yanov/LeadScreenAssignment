@@ -6,7 +6,7 @@ using SimpleInjector;
 
 namespace LeadScreenAssignment.Business
 {
-    public class BusinessIoCConfig : IIoCConfig
+    public class BusinessIoCConfig
     {
 
         public BusinessIoCConfig(Container container, IServiceCollection services, IConfiguration configuration)
