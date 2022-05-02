@@ -8,7 +8,8 @@ namespace LeadScreenAssignment.Core.Entities
 {
     public class LeadEntity: BaseEntity
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         
         public Guid SubAreaId { get; set; }
         public SubAreaEntity SubArea { get; set; }

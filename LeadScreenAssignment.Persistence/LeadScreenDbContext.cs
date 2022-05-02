@@ -24,12 +24,36 @@ namespace LeadScreenAssignment.Persistence
         {
             modelBuilder.Entity<SubAreaEntity>().HasOne(e => e.PinCode)
                 .WithMany(e => e.SubAreas)
-                .HasForeignKey(e => e.PinCodeId);
+                .HasForeignKey(e => e.PinCodeId)
+                .IsRequired();
 
-            modelBuilder.Entity<LeadEntity>()
+            modelBuilder.Entity<LeadEntity>()                
                 .HasOne(e => e.SubArea)
                 .WithMany(e => e.Leads)
-                .HasForeignKey(x => x.SubAreaId);
+                .HasForeignKey(x => x.SubAreaId)
+                .IsRequired();
+
+            modelBuilder
+                .Entity<LeadEntity>()
+                .Property(e=>e.FirstName)
+                .HasMaxLength(50);
+
+            modelBuilder
+                .Entity<LeadEntity>()
+                .Property(e => e.LastName)
+                .HasMaxLength(50);
+
+            modelBuilder
+               .Entity<SubAreaEntity>()
+               .Property(e => e.Name)
+               .HasMaxLength(50)
+               .IsRequired();
+
+            modelBuilder
+             .Entity<PinCodeEntity>()
+             .Property(e => e.Name)
+             .HasMaxLength(6)
+             .IsRequired();
 
 
             base.OnModelCreating(modelBuilder);
