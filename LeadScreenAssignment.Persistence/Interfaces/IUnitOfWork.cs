@@ -8,7 +8,9 @@ namespace LeadScreenAssignment.Persistence.Interfaces
 {
     public interface IUnitOfWork
     {        
-        //todo add repositories
+        ILeadRepository Leads { get; }
+        ISubAreaRepository SubAreas { get; }
+        IPinCodeRepository PinCodes { get; }
         int Complete();
     }
 }
