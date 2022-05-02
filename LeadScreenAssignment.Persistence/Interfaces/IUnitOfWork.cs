@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LeadScreenAssignment.Persistence.Interfaces
 {
-    public interface IUnitOfWork
-    {        
+    public interface IUnitOfWork : IDisposable
+    {
         ILeadRepository Leads { get; }
         ISubAreaRepository SubAreas { get; }
         IPinCodeRepository PinCodes { get; }

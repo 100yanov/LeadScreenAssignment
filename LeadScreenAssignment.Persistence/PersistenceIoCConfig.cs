@@ -1,4 +1,5 @@
-﻿using LeadScreenAssignment.Core;
+﻿using LeadScreenAssignment.Persistence.Interfaces;
+using LeadScreenAssignment.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,12 +8,15 @@ using SimpleInjector;
 namespace LeadScreenAssignment.Persistence
 {
     public class PersistenceIoCConfig
-    {        
+    {
+        private readonly Container container;
         private string connectionString;
 
         public PersistenceIoCConfig(Container container,IConfiguration configuration )
 		{
-			this.connectionString = configuration.GetConnectionString("DefaultConnection");
+            this.container = container;
+
+            this.connectionString = configuration.GetConnectionString("DefaultConnection");
 		}
 
 		public void AddServices(IServiceCollection services)
@@ -28,8 +32,11 @@ namespace LeadScreenAssignment.Persistence
 
         public void RegisterDependencies()
         {
-            //TODO: register unit of work
-			//todo: register repositories
+            container.Register<ILeadRepository, LeadRepository>(Lifestyle.Scoped);
+            container.Register<IPinCodeRepository, PinCodeRepository>(Lifestyle.Scoped);
+            container.Register<ISubAreaRepository, SubAreaRepository>(Lifestyle.Scoped);
+            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+			
         }
     }
 }

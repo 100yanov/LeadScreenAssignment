@@ -24,25 +24,23 @@ namespace LeadScreenAssignment.Persistence.Repositories
             this.set = context.Set<T>();
         }
 
-        public void Add(T entity)
-        {
-            this.set.Add(entity);
-        }
+        public void Add(T entity)=> this.set.Add(entity);
+
+        public void AddRange(IEnumerable<T> entities) 
+            => this.set.AddRange(entities);
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate) => this.set
                 .Where(predicate)
                 .ToList();
 
-
         public T Get(Guid id) =>
-            this.set.FirstOrDefault(t => t.Id == id);
+            this.set.Find(id);
 
-
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate) =>
-            this.set.Where(predicate).ToList();
+        public IEnumerable<T> GetAll() =>
+            this.set.ToList();
 
         public void Remove(T entity) => this.set.Remove(entity);
 
-        public void RemoveRange(IEnumerable<T> entities) => this.set.RemoveRange();
+        public void RemoveRange(IEnumerable<T> entities)=>this.set.RemoveRange();
     }
 }
