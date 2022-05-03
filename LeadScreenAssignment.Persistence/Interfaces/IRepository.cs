@@ -3,15 +3,15 @@ using System.Linq.Expressions;
 
 namespace LeadScreenAssignment.Persistence.Interfaces
 {
-    public interface IRepository<T, TKey> where T : IBaseEntity<TKey>
+    public interface IRepository<TEntity, TKey> where TEntity : IBaseEntity<TKey>
         where TKey : struct
     {
-        void Add(T entity);
-        void AddRange(IEnumerable<T> entities);
-        void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
-        T Get(TKey id);
-        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
-        IEnumerable<T> GetAll();
+        void Add(TEntity entity);
+        void AddRange(IEnumerable<TEntity> entities);
+        void Remove(TEntity entity);
+        void RemoveRange(IEnumerable<TEntity> entities);
+        TEntity Get(TKey id);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetAll(params string[] includes);
     }
 }

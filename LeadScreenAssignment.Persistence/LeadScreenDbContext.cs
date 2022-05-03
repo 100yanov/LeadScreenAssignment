@@ -29,13 +29,7 @@ namespace LeadScreenAssignment.Persistence
 
             modelBuilder
                 .Entity<LeadEntity>()
-                .Property(e=>e.FirstName)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            modelBuilder
-                .Entity<LeadEntity>()
-                .Property(e => e.LastName)
+                .Property(e=>e.Name)
                 .HasMaxLength(50)
                 .IsRequired();
 

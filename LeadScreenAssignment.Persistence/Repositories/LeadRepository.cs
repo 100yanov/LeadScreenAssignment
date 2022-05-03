@@ -6,9 +6,11 @@ namespace LeadScreenAssignment.Persistence.Repositories
 {
     public class LeadRepository : BaseRepository<LeadEntity>, ILeadRepository
     {
-        public LeadRepository(DbContext context)
+        public LeadRepository(LeadScreenDbContext context)
             : base(context)
         {
         }
+
+        
     }
 }

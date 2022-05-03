@@ -13,11 +13,13 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
-var container = new Container();
-builder.Services.AddSimpleInjector(container);
+//var container = new Container();
+//builder.Services.AddSimpleInjector(container);
 
-var businessIoCConfig = new BusinessIoCConfig(container, builder.Services, builder.Configuration); //TODO: make static
+var businessIoCConfig = new BusinessIoCConfig(/*container,*/ builder.Services, builder.Configuration); //TODO: make static
+businessIoCConfig.AddServices();
 businessIoCConfig.RegisterDependencies();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -25,7 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.Services.UseSimpleInjector(container);
+//app.Services.UseSimpleInjector(container);
 
 app.UseHttpsRedirection();
 

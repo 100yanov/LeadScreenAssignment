@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeadScreenAssignment.Core.Entities
+namespace LeadScreenAssignment.Core.Models
 {
-    public class LeadEntity: BaseEntity
+    public class LeadEditModel : BaseModel
     {
         public string Name { get; set; }
-        
         public Guid SubAreaId { get; set; }
-        public virtual SubAreaEntity SubArea { get; set; }
     }
 }

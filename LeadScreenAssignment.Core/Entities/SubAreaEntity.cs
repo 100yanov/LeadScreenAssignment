@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
         public string PinCode { get; set; }
-        public virtual ICollection<LeadEntity> Leads { get; set; }
+        public virtual IEnumerable<LeadEntity> Leads { get; set; }
     }
 }

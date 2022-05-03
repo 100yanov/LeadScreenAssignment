@@ -1,41 +1,38 @@
-﻿using LeadScreenAssignment.Persistence.Interfaces;
+﻿using LeadScreenAssignment.Core.Interfaces;
+using LeadScreenAssignment.Persistence.Interfaces;
 using LeadScreenAssignment.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleInjector;
 
 namespace LeadScreenAssignment.Persistence
 {
-    public class PersistenceIoCConfig
+    public class PersistenceIoCConfig : IIoCConfig
     {
-        private readonly Container container;
+        private readonly IServiceCollection services;
         private string connectionString;
 
-        public PersistenceIoCConfig(Container container,IConfiguration configuration )
-		{
-            this.container = container;
-
+        public PersistenceIoCConfig(IServiceCollection services, IConfiguration configuration)
+        {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
-		}
+            this.services = services;
+        }
 
-		public void AddServices(IServiceCollection services)
-		{			
-            services
+        public void AddServices()
+        {
+            this.services
                 .AddDbContext<LeadScreenDbContext>(options =>
                 {
                     options.UseSqlServer(connectionString);
-                    
+
                 }, ServiceLifetime.Scoped);
-			services.AddScoped<DbContext, LeadScreenDbContext>();
         }
 
         public void RegisterDependencies()
         {
-            container.Register<ILeadRepository, LeadRepository>(Lifestyle.Scoped);
-            container.Register<ISubAreaRepository, SubAreaRepository>(Lifestyle.Scoped);
-            container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
-			
+            this.services.AddScoped<IUnitOfWork, UnitOfWork>();
+            this.services.AddScoped<ILeadRepository, LeadRepository>();
+            this.services.AddScoped<ISubAreaRepository, SubAreaRepository>();
         }
     }
 }

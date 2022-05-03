@@ -10,9 +10,9 @@ namespace LeadScreenAssignment.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext context;
+        private readonly LeadScreenDbContext context;
 
-        public UnitOfWork(DbContext context,
+        public UnitOfWork(LeadScreenDbContext context,
             ILeadRepository leadRepository,            
             ISubAreaRepository subAreaRepository)
         {
@@ -25,11 +25,8 @@ namespace LeadScreenAssignment.Persistence
 
         public ISubAreaRepository SubAreas { get; }
 
-        
-
         public int Complete()=>
             this.context.SaveChanges();
-
 
         public void Dispose() => this.context.Dispose();
     }

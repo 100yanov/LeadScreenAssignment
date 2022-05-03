@@ -11,7 +11,7 @@ namespace LeadScreenAssignment.Persistence.Repositories
 {
     public class SubAreaRepository : BaseRepository<SubAreaEntity>, ISubAreaRepository
     {
-        public SubAreaRepository(DbContext context) : base(context)
+        public SubAreaRepository(LeadScreenDbContext context) : base(context)
         {
         }
     }

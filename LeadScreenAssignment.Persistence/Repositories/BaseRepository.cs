@@ -1,6 +1,7 @@
 ﻿using LeadScreenAssignment.Core.Entities;
 using LeadScreenAssignment.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +25,31 @@ namespace LeadScreenAssignment.Persistence.Repositories
             this.set = context.Set<T>();
         }
 
-        public void Add(T entity)=> this.set.Add(entity);
+        public virtual void Add(T entity) => this.set.Add(entity);
 
-        public void AddRange(IEnumerable<T> entities) 
+        public virtual void AddRange(IEnumerable<T> entities)
             => this.set.AddRange(entities);
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate) => this.set
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate) => this.set
                 .Where(predicate)
                 .ToList();
 
-        public T Get(Guid id) =>
+        public virtual T Get(Guid id) =>
             this.set.Find(id);
 
-        public IEnumerable<T> GetAll() =>
-            this.set.ToList();
+        public virtual IEnumerable<T> GetAll(params string[] includes)
+        {
+            var result = this.set.AsQueryable();
+            foreach (var include in includes)
+            {
+                result = result.Include(include);
+            }
+            return result.ToList();
+        }
 
-        public void Remove(T entity) => this.set.Remove(entity);
 
-        public void RemoveRange(IEnumerable<T> entities)=>this.set.RemoveRange();
+        public virtual void Remove(T entity) => this.set.Remove(entity);
+
+        public virtual void RemoveRange(IEnumerable<T> entities) => this.set.RemoveRange();
     }
 }
