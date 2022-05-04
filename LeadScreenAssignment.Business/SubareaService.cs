@@ -12,14 +12,11 @@ namespace LeadScreenAssignment.Business
             : base( unitOfWork)
         {
         }
-
-
-
         public override IEnumerable<SubAreaModel> Get<SubAreaModel>()
         {
             return UnitOfWork
                 .SubAreas
-                .GetAll()
+                .GetAll(sa=>sa.Leads)
                 .Select(e => ToModel<SubAreaModel>(e));
         }
        

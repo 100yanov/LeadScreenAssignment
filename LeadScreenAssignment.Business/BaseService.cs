@@ -50,8 +50,8 @@ namespace LeadScreenAssignment.Business
             {
                 throw new ArgumentException("Model can not be null!");
             }
-        }
+        } 
 
-       
+
     }
 }

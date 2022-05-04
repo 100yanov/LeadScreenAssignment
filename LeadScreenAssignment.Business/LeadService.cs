@@ -30,12 +30,13 @@ namespace LeadScreenAssignment.Business
 
         public override IEnumerable<LeadModel> Get<LeadModel>()
         {
-            var result =  UnitOfWork
+            var entities = this.UnitOfWork
                 .Leads
-                .GetAll(nameof(LeadEntity.SubArea))
-                .Select(e => ToModel<LeadModel>(e));
-            return result; 
+                .GetAll(l=>l.SubArea);
+            return entities.Select(e => base.ToModel<LeadModel>(e));
         }
+
+        
 
         public override LeadModel Get<LeadModel>(Guid id)
         {
@@ -48,6 +49,8 @@ namespace LeadScreenAssignment.Business
             var entity = ToEntity(model);
             UnitOfWork.Leads.Add(entity);
             UnitOfWork.Complete();
-        }   
+        }
+
+       
     }
 }

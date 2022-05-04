@@ -11,7 +11,9 @@ namespace LeadScreenAssignment.Persistence.Interfaces
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
         TEntity Get(TKey id);
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-        IEnumerable<TEntity> GetAll(params string[] includes);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
+
+     
+        IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includeProperties );
     }
 }
