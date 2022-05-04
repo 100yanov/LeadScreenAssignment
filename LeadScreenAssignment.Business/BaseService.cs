@@ -32,7 +32,7 @@ namespace LeadScreenAssignment.Business
 
         public abstract void Delete(Guid id);
 
-        protected virtual TModel ToModel<TModel>(TEntity entity)
+        protected virtual TModel ToModel<TModel>(TEntity entity) //
             where TModel : BaseModel, new()
         {
             return TinyMapper.Map<TModel>(entity);

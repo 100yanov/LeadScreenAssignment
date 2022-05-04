@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 namespace LeadScreenAssignment.Core.Models
 {
     public class LeadModel : BaseModel
-    {
-       
+    {       
         public string Name { get; set; }
 
-        public Guid SubAreaId { get; set; }
-        public string SubArea { get; set; }
+        public SubAreaEditModel SubArea { get; set; }       
     }
 }

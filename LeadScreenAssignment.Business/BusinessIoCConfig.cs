@@ -14,7 +14,6 @@ namespace LeadScreenAssignment.Business
 
         public BusinessIoCConfig(IServiceCollection services, IConfiguration configuration)
         {
-
             //TODO: change the way this is implemented
             PersistenceIoCConfig persConfig = new PersistenceIoCConfig(services, configuration);
 
@@ -36,7 +35,7 @@ namespace LeadScreenAssignment.Business
         {
 
             TinyMapper.Bind<SubAreaModel, SubAreaEntity>();
-            TinyMapper.Bind<SubAreaEntity, SubAreaModel>();
+            TinyMapper.Bind<SubAreaEntity, SubAreaModel>(config => config.Bind(t => t.Leads, typeof(List<LeadEditModel>)));
 
             TinyMapper.Bind<SubAreaEditModel, SubAreaEntity>();
             TinyMapper.Bind<SubAreaEntity, SubAreaEditModel>();
@@ -44,12 +43,12 @@ namespace LeadScreenAssignment.Business
 
         private static void BindLeads()
         {
+            TinyMapper.Bind<LeadEditModel, LeadEntity>();
+            TinyMapper.Bind<LeadEntity, LeadEditModel>();
 
             TinyMapper.Bind<LeadModel, LeadEntity>();
             TinyMapper.Bind<LeadEntity, LeadModel>();
-
-            TinyMapper.Bind<LeadEditModel, LeadEntity>();
-            TinyMapper.Bind<LeadEntity, LeadEditModel>();
+         
         }
 
 
