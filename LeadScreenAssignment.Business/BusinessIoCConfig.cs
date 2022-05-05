@@ -1,4 +1,5 @@
 ﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Core.Filters;
 using LeadScreenAssignment.Core.Interfaces;
 using LeadScreenAssignment.Core.Models;
 using LeadScreenAssignment.Persistence;
@@ -54,8 +55,8 @@ namespace LeadScreenAssignment.Business
 
         public void RegisterDependencies()
         {
-            services.AddScoped<IService<SubAreaEntity, SubAreaModel, SubAreaEditModel>, SubareaService>();
-            services.AddScoped<IService<LeadEntity, LeadModel, LeadEditModel>, LeadService>();
+            services.AddScoped<IService<SubAreaEntity, SubAreaFilter,SubAreaModel, SubAreaEditModel>, SubareaService>();
+            services.AddScoped<IService<LeadEntity, LeadFilter, LeadModel, LeadEditModel>, LeadService>();
         }
     }
 }

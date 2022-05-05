@@ -6,29 +6,28 @@ using Nelibur.ObjectMapper;
 
 namespace LeadScreenAssignment.Business
 {
-    public abstract class BaseService<TEntity, TModel, TEditModel> : IService<TEntity, TModel, TEditModel>
+    public abstract class BaseService<TEntity, TFilter, TModel, TEditModel>
+        : IService<TEntity, TFilter, TModel, TEditModel>
         where TEntity : BaseEntity, new()
         where TModel : BaseModel, new()
         where TEditModel : BaseModel, new()
+        where TFilter : class, IFilter
     {
-        
+
         protected readonly IUnitOfWork UnitOfWork;
 
         public BaseService(IUnitOfWork unitOfWork)
-        {        
-            
+        {
+
             UnitOfWork = unitOfWork;
         }
 
-        public abstract IEnumerable<TModel> Get<TModel>()
-             where TModel : BaseModel, new();
-        public abstract TModel Get<TModel>(Guid id)
-            where TModel : BaseModel, new();
-        public abstract void Add<TEditModel>(TEditModel model)
-            where TEditModel : BaseModel, new();
+        public abstract IEnumerable<TModel> Get(TFilter filter=null);
 
-        public abstract void Update<TEditModel>(TEditModel model)
-            where TEditModel : BaseModel, new();
+        public abstract TModel Get(Guid id);
+        public abstract void Add(TEditModel model);
+
+        public abstract void Update(TEditModel model);
 
         public abstract void Delete(Guid id);
 
@@ -39,18 +38,19 @@ namespace LeadScreenAssignment.Business
         }
 
         protected virtual TEntity ToEntity<TModel>(TModel model)
-            where TModel : BaseModel, new()        
-        {            
+            where TModel : BaseModel, new()
+        {
             return TinyMapper.Map<TEntity>(model);
         }
 
-        protected virtual void ValidateModel<TEditModel>(TEditModel model)            
+        protected virtual void ValidateModel<TModel>(TModel model)
+            where TModel : BaseModel, new()
         {
             if (model is null)
             {
                 throw new ArgumentException("Model can not be null!");
             }
-        } 
+        }
 
 
     }

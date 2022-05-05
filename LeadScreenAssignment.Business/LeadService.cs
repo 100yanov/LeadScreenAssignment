@@ -1,10 +1,11 @@
 ﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Core.Filters;
 using LeadScreenAssignment.Core.Models;
 using LeadScreenAssignment.Persistence.Interfaces;
 
 namespace LeadScreenAssignment.Business
 {
-    public class LeadService : BaseService<LeadEntity, LeadModel, LeadEditModel>
+    public class LeadService : BaseService<LeadEntity,LeadFilter, LeadModel, LeadEditModel>
     {
         public LeadService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
@@ -12,7 +13,7 @@ namespace LeadScreenAssignment.Business
 
         }
 
-        public override void Add<LeadEditModel>(LeadEditModel model)
+        public override void Add(LeadEditModel model)
         {
             ValidateModel(model);
             var entity = ToEntity(model);
@@ -28,22 +29,21 @@ namespace LeadScreenAssignment.Business
             UnitOfWork.Complete();
         }
 
-        public override IEnumerable<LeadModel> Get<LeadModel>()
+        public override IEnumerable<LeadModel> Get(LeadFilter filter )
         {
             var entities = this.UnitOfWork
                 .Leads
-                .GetAll(l=>l.SubArea);
+                .GetAll(l => l.SubArea);
             return entities.Select(e => base.ToModel<LeadModel>(e));
         }
 
-        
 
-        public override LeadModel Get<LeadModel>(Guid id)
+        public override LeadModel Get(Guid id)
         {
             return ToModel<LeadModel>(UnitOfWork.Leads.Get(id));
         }
 
-        public override void Update<LeadModel>(LeadModel model)
+        public override void Update(LeadEditModel model)
         {
             ValidateModel(model);
             var entity = ToEntity(model);

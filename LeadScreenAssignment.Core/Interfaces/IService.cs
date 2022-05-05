@@ -3,22 +3,20 @@ using LeadScreenAssignment.Core.Models;
 
 namespace LeadScreenAssignment.Core.Interfaces
 {
-    public interface IService<TEntity, TModel, TEditModel>
+    public interface IService<TEntity, TFilter, TModel, TEditModel>
         where TEntity : BaseEntity, new()
         where TModel : BaseModel, new()
         where TEditModel : BaseModel, new()
+         where TFilter : class, IFilter
     {
-        IEnumerable<TModel> Get<TModel>()
-            where TModel : BaseModel, new();
-       
-        TModel Get<TModel>(Guid id) 
-            where TModel : BaseModel, new();
+        IEnumerable<TModel> Get(TFilter filter);
 
-        void Add<TEditModel>(TEditModel model)
-            where TEditModel : BaseModel, new();
+
+        TModel Get(Guid id);
+
+        void Add(TEditModel model);
        
-        void Update<TEditModel>(TEditModel model)
-             where TEditModel : BaseModel, new();
+        void Update(TEditModel model);
         void Delete(Guid id);
     }
 }
