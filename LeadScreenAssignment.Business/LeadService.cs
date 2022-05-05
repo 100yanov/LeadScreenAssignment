@@ -2,10 +2,11 @@
 using LeadScreenAssignment.Core.Filters;
 using LeadScreenAssignment.Core.Models;
 using LeadScreenAssignment.Persistence.Interfaces;
+using System.Linq.Expressions;
 
 namespace LeadScreenAssignment.Business
 {
-    public class LeadService : BaseService<LeadEntity,LeadFilter, LeadModel, LeadEditModel>
+    public class LeadService : BaseService<LeadEntity, LeadFilter, LeadModel, LeadEditModel>
     {
         public LeadService(IUnitOfWork unitOfWork)
             : base(unitOfWork)
@@ -29,11 +30,19 @@ namespace LeadScreenAssignment.Business
             UnitOfWork.Complete();
         }
 
-        public override IEnumerable<LeadModel> Get(LeadFilter filter )
+        public override IEnumerable<LeadModel> Get(LeadFilter filter)
         {
-            var entities = this.UnitOfWork
+            IEnumerable<LeadEntity>? entities;
+            if (filter is null)
+            {
+             entities = this.UnitOfWork
                 .Leads
                 .GetAll(l => l.SubArea);
+            }
+            else
+            {
+                entities = this.UnitOfWork.Leads.Find(this.GetFilter(filter));
+            }
             return entities.Select(e => base.ToModel<LeadModel>(e));
         }
 
@@ -43,6 +52,7 @@ namespace LeadScreenAssignment.Business
             return ToModel<LeadModel>(UnitOfWork.Leads.Get(id));
         }
 
+
         public override void Update(LeadEditModel model)
         {
             ValidateModel(model);
@@ -51,6 +61,12 @@ namespace LeadScreenAssignment.Business
             UnitOfWork.Complete();
         }
 
-       
+        protected override Expression<Func<LeadEntity, bool>> GetFilter(LeadFilter filter)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
     }
 }

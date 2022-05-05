@@ -3,6 +3,7 @@ using LeadScreenAssignment.Core.Interfaces;
 using LeadScreenAssignment.Core.Models;
 using LeadScreenAssignment.Persistence.Interfaces;
 using Nelibur.ObjectMapper;
+using System.Linq.Expressions;
 
 namespace LeadScreenAssignment.Business
 {
@@ -51,7 +52,7 @@ namespace LeadScreenAssignment.Business
                 throw new ArgumentException("Model can not be null!");
             }
         }
-
+        protected abstract Expression<Func<TEntity, bool>> GetFilter(TFilter filter);
 
     }
 }
