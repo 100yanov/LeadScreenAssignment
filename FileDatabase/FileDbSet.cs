@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeadScreenAssignment.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace FileDatabase
 {
-    public class FileDbSet<T> : IDbSet<T>
-        where T : class
+    public class FileDbSet<TEntity> : IDbSet<TEntity>
+        where TEntity : class
     {
-        private readonly List<T> set;
+        private readonly List<TEntity> set;
 
         private string name { get;  }
 
-        public FileDbSet(List<T> entities, string name)
+        public FileDbSet(List<TEntity> entities, string name)
         {
             this.set = entities;
             this.name = name;
@@ -26,7 +27,7 @@ namespace FileDatabase
 
         public IQueryProvider Provider => throw new NotImplementedException();
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<TEntity> GetEnumerator()
         {
             return set.GetEnumerator();
         }
@@ -38,6 +39,31 @@ namespace FileDatabase
         public override string ToString()
         {
             return name;
+        }
+
+        public void Add(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Find(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRange()
+        {
+            throw new NotImplementedException();
         }
     }
 }

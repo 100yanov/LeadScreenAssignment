@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeadScreenAssignment.Core",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeadScreenAssignment.Business", "LeadScreenAssignment.Business\LeadScreenAssignment.Business.csproj", "{2E329D56-3E43-4E1F-8539-35BB108E97D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDatabase", "FileDatabase\FileDatabase.csproj", "{05A14807-2F89-481A-8125-CFAABE3C059A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileDatabase", "FileDatabase\FileDatabase.csproj", "{05A14807-2F89-481A-8125-CFAABE3C059A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeadScreenAssignment.Data", "LeadScreenAssignment.Data\LeadScreenAssignment.Data.csproj", "{BAF0E730-26C7-4451-BAA6-1025C0F52753}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{05A14807-2F89-481A-8125-CFAABE3C059A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05A14807-2F89-481A-8125-CFAABE3C059A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05A14807-2F89-481A-8125-CFAABE3C059A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAF0E730-26C7-4451-BAA6-1025C0F52753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF0E730-26C7-4451-BAA6-1025C0F52753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF0E730-26C7-4451-BAA6-1025C0F52753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF0E730-26C7-4451-BAA6-1025C0F52753}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

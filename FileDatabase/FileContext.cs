@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeadScreenAssignment.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FileDatabase
 {
-    public abstract class FileContext
+    public abstract class FileContext 
     {
         private Dictionary<Type, object> sets;
 

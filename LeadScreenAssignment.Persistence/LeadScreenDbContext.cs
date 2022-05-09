@@ -1,4 +1,5 @@
 ﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 namespace LeadScreenAssignment.Persistence
 {
     //TODO move into data?
-    public class LeadScreenDbContext : DbContext
+    public class LeadScreenDbContext : DbContext, IDbContext
     {
         public LeadScreenDbContext(DbContextOptions options) : base(options)
         {
+            
         }
 
         public DbSet<LeadEntity> Leads { get; set; }     
@@ -49,6 +51,9 @@ namespace LeadScreenAssignment.Persistence
             base.OnModelCreating(modelBuilder);
         }
 
-        
+        IDbSet<T> IDbContext.Set<T>()
+        {
+            return EfDbSet<T>.Instance(this.Set<T>());
+        }
     }
 }

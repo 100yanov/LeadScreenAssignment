@@ -1,4 +1,5 @@
 ﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Data;
 using LeadScreenAssignment.Persistence.Extensions;
 using LeadScreenAssignment.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +10,12 @@ namespace LeadScreenAssignment.Persistence.Repositories
     public abstract class BaseRepository<TEntity> : ILeadScreenAssignmentRepository<TEntity>
         where TEntity : BaseEntity
     {
-        protected readonly DbContext context;
-        protected readonly DbSet<TEntity> set;
+        protected readonly IDbContext context;
+        protected readonly IDbSet<TEntity> set;
 
         //TODO: add async methods
         //TODO: extract interface to abstract leadscreenDbContxt's functionality
-        public BaseRepository(DbContext context)
+        public BaseRepository(IDbContext context)
         {
             this.context = context;
             this.set = context.Set<TEntity>();
