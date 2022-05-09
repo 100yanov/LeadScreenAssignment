@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FileDatabase\FileDatabase.csproj" />
     <ProjectReference Include="..\LeadScreenAssignment.Core\LeadScreenAssignment.Core.csproj" />
     <ProjectReference Include="..\LeadScreenAssignment.Persistence\LeadScreenAssignment.Persistence.csproj" />
   </ItemGroup>

@@ -41,7 +41,6 @@ namespace LeadScreenAssignment.Persistence.Repositories
             return query.ToList();
         }
 
-
         public virtual void Remove(TEntity entity) => this.set.Remove(entity);
 
         public virtual void RemoveRange(IEnumerable<TEntity> entities) => this.set.RemoveRange();
