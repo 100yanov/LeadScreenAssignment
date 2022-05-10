@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace LeadScreenAssignment.Data
 {
-    public interface IDbContext
+    public interface IDbContext : IDisposable
     {
         IDbSet<T> Set<T>() where T: class;
+        int SaveChanges();
     }
 }

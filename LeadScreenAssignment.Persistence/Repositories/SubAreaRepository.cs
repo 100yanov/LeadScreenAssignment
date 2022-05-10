@@ -1,18 +1,14 @@
 ﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Data;
 using LeadScreenAssignment.Persistence.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LeadScreenAssignment.Persistence.Repositories
 {
     public class SubAreaRepository : BaseRepository<SubAreaEntity>, ISubAreaRepository
     {
-        public SubAreaRepository(LeadScreenDbContext context) : base(context)
+        public SubAreaRepository(IDbContext context) : base(context)
         {
-        }
+        }        
+   
     }
 }

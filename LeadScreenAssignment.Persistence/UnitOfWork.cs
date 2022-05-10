@@ -1,4 +1,6 @@
-﻿using LeadScreenAssignment.Persistence.Interfaces;
+﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Data;
+using LeadScreenAssignment.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,10 @@ namespace LeadScreenAssignment.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly LeadScreenDbContext context;
+        private readonly IDbContext context;
 
-        public UnitOfWork(LeadScreenDbContext context,
-            ILeadRepository leadRepository,            
+        public UnitOfWork(IDbContext context,
+            ILeadRepository leadRepository,
             ISubAreaRepository subAreaRepository)
         {
             this.context = context;
@@ -25,8 +27,10 @@ namespace LeadScreenAssignment.Persistence
 
         public ISubAreaRepository SubAreas { get; }
 
-        public int Complete()=>
-            this.context.SaveChanges();
+        public int Complete()
+        {         
+            return this.context.SaveChanges();
+        }
 
         public void Dispose() => this.context.Dispose();
     }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LeadScreenAssignment.Core\LeadScreenAssignment.Core.csproj" />
     <ProjectReference Include="..\LeadScreenAssignment.Data\LeadScreenAssignment.Data.csproj" />
   </ItemGroup>
 

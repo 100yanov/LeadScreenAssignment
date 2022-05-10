@@ -1,15 +1,10 @@
 ﻿using LeadScreenAssignment.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FileDatabase
 {
-    public abstract class FileContext 
+    public abstract class FileContext : IDbContext
     {
         private Dictionary<Type, object> sets;
 
@@ -17,7 +12,7 @@ namespace FileDatabase
 
         public FileContext(string connectionString)
         {
-            connectionString = connectionString;
+            this.connectionString = connectionString;
             this.sets = new Dictionary<Type, object>();
             if (!Directory.Exists(connectionString))
             {
@@ -43,22 +38,22 @@ namespace FileDatabase
                 var dbsetType = typeof(FileDbSet<>).MakeGenericType(genericSetType);
 
                 var result = JsonSerializer.Deserialize(elementsString, listType);
-                var dbset = Activator.CreateInstance(dbsetType, new object[] { result });
+                var dbset = Activator.CreateInstance(dbsetType, new object[] { result, set.Name });
 
                 if (!this.sets.ContainsKey(genericSetType))
                 {
                     this.sets[genericSetType] = dbset;
                 }
             }
-
+          
         }
         public IDbSet<T> Set<T>() where T : class
         {
 
             if (sets.ContainsKey(typeof(T)))
             {
-                var set = this.sets[typeof(T)];
-                return set as IDbSet<T>;
+                object set =  this.sets[typeof(T)];
+                return (IDbSet<T>)set;
             }
             else
             {
@@ -66,15 +61,21 @@ namespace FileDatabase
             }
         }
 
-        public int Save()
+        public int SaveChanges()
         {
             int counter = 0;
             foreach (var item in this.sets)
             {
-                var str = JsonSerializer.Serialize(item);
+               
+                var str = JsonSerializer.Serialize(item.Value);
                 File.WriteAllText(Path.Combine(this.connectionString, item.Value.ToString()), str);
             }
             return counter;
+        }
+
+        public void Dispose()
+        {
+            //TODO:
         }
     }
 

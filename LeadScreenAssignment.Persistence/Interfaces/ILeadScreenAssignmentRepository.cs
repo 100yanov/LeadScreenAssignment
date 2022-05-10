@@ -2,8 +2,9 @@
 
 namespace LeadScreenAssignment.Persistence.Interfaces
 {
-    public interface ILeadScreenAssignmentRepository<T> : IRepository<T, Guid>
-        where T : BaseEntity
+    public interface ILeadScreenAssignmentRepository<TEntity> : IRepository<TEntity, Guid>
+        where TEntity : BaseEntity
     {
+      
     }
 }

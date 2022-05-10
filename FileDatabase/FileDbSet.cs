@@ -1,4 +1,5 @@
-﻿using LeadScreenAssignment.Data;
+﻿using LeadScreenAssignment.Core.Entities;
+using LeadScreenAssignment.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,22 +11,23 @@ using System.Threading.Tasks;
 namespace FileDatabase
 {
     public class FileDbSet<TEntity> : IDbSet<TEntity>
-        where TEntity : class
+        where TEntity : BaseEntity
     {
         private readonly List<TEntity> set;
 
-        private string name { get;  }
+        private string name { get; }
 
         public FileDbSet(List<TEntity> entities, string name)
         {
+
             this.set = entities;
             this.name = name;
         }
         public Type ElementType => throw new NotImplementedException();
 
-        public Expression Expression => throw new NotImplementedException();
+        public Expression Expression => this.set.AsQueryable().Expression;
 
-        public IQueryProvider Provider => throw new NotImplementedException();
+        public IQueryProvider Provider => this.set.AsQueryable().Provider;
 
         public IEnumerator<TEntity> GetEnumerator()
         {
@@ -43,7 +45,16 @@ namespace FileDatabase
 
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (entity.Id == null || entity.Id == Guid.Empty)
+            {
+                entity.Id = Guid.NewGuid();
+                this.set.Add(entity);
+            }
+            else
+            {
+                var oldEntity = this.Find(entity.Id);
+                oldEntity = entity;
+            }
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
@@ -53,12 +64,13 @@ namespace FileDatabase
 
         public TEntity Find(Guid id)
         {
-            throw new NotImplementedException();
+            return this.set.FirstOrDefault(x => x.Id == id);
         }
 
         public void Remove(TEntity entity)
         {
-            throw new NotImplementedException();
+            var e = this.Find(entity.Id);
+            this.set.Remove(e);
         }
 
         public void RemoveRange()

@@ -1,4 +1,6 @@
-﻿using LeadScreenAssignment.Core.Interfaces;
+﻿using FileDatabase;
+using LeadScreenAssignment.Core.Interfaces;
+using LeadScreenAssignment.Data;
 using LeadScreenAssignment.Persistence.Interfaces;
 using LeadScreenAssignment.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,15 +23,18 @@ namespace LeadScreenAssignment.Persistence
         public void AddServices()
         {
             this.services
-                .AddDbContext<LeadScreenDbContext>(options =>
-                {
-                    options.UseSqlServer(connectionString);
+                .AddDbContext<IDbContext, LeadScreenDbContext>(options =>
+             {
+                 options.UseSqlServer(connectionString);
 
-                }, ServiceLifetime.Scoped);
+             }, ServiceLifetime.Transient);
+
+            //this.services.AddScoped<IDbContext, LeadScreenFileDbContext>(i => new LeadScreenFileDbContext(@"C:\Test Folder"));
         }
 
         public void RegisterDependencies()
         {
+
             this.services.AddScoped<IUnitOfWork, UnitOfWork>();
             this.services.AddScoped<ILeadRepository, LeadRepository>();
             this.services.AddScoped<ISubAreaRepository, SubAreaRepository>();

@@ -30,12 +30,9 @@ namespace LeadScreenAssignment.Business
                   .SubAreas
                   .Find(this.GetFilter(filter), sa => sa.Leads) //remove includes 
                   .Select(e => ToModel<SubAreaModel>(e));
-            }
-          
+            }          
             
         }
-
-
         public override void Delete(Guid id)
         {
             UnitOfWork

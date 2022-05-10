@@ -30,7 +30,7 @@ namespace LeadScreenAssignment.Business
             UnitOfWork.Complete();
         }
 
-        public override IEnumerable<LeadModel> Get(LeadFilter filter)
+        public override IEnumerable<LeadModel> Get(LeadFilter filter= null)
         {
             IEnumerable<LeadEntity>? entities;
             if (filter is null)
@@ -63,10 +63,8 @@ namespace LeadScreenAssignment.Business
 
         protected override Expression<Func<LeadEntity, bool>> GetFilter(LeadFilter filter)
         {
-            throw new NotImplementedException();
+            return sa => true ; //TODO: change once lead filters are known
         }
-
-
 
     }
 }

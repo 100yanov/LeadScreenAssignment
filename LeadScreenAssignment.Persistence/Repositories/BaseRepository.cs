@@ -12,13 +12,12 @@ namespace LeadScreenAssignment.Persistence.Repositories
     {
         protected readonly IDbContext context;
         protected readonly IDbSet<TEntity> set;
-
         //TODO: add async methods
-        //TODO: extract interface to abstract leadscreenDbContxt's functionality
         public BaseRepository(IDbContext context)
         {
             this.context = context;
             this.set = context.Set<TEntity>();
+           
         }
 
         public virtual void Add(TEntity entity) => this.set.Add(entity);
