@@ -1,5 +1,4 @@
-﻿using FileDatabase;
-using LeadScreenAssignment.Core.Interfaces;
+﻿using LeadScreenAssignment.Core.Interfaces;
 using LeadScreenAssignment.Data;
 using LeadScreenAssignment.Persistence.Interfaces;
 using LeadScreenAssignment.Persistence.Repositories;
@@ -22,14 +21,20 @@ namespace LeadScreenAssignment.Persistence
 
         public void AddServices()
         {
+            //Swap these 2 implementations to switch databases:
+
+            //Ef Core DB context:
             this.services
                 .AddDbContext<IDbContext, LeadScreenDbContext>(options =>
              {
                  options.UseSqlServer(connectionString);
 
-             }, ServiceLifetime.Transient);
 
-            //this.services.AddScoped<IDbContext, LeadScreenFileDbContext>(i => new LeadScreenFileDbContext(@"C:\Test Folder"));
+             }, ServiceLifetime.Singleton, ServiceLifetime.Singleton);
+
+            //Write to file:
+            // this.services.AddScoped<IDbContext, LeadScreenFileDbContext>(i => new LeadScreenFileDbContext(@"C:\LeadScreenDatabase"));
+
         }
 
         public void RegisterDependencies()
@@ -37,7 +42,9 @@ namespace LeadScreenAssignment.Persistence
 
             this.services.AddScoped<IUnitOfWork, UnitOfWork>();
             this.services.AddScoped<ILeadRepository, LeadRepository>();
-            this.services.AddScoped<ISubAreaRepository, SubAreaRepository>();
+            this.services.AddScoped<ISubAreaRepository, SubAreaRepository>();            
         }
+
+      
     }
 }

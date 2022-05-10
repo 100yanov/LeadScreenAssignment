@@ -9,21 +9,20 @@ using System.Threading.Tasks;
 
 namespace LeadScreenAssignment.Persistence
 {
-    //TODO move into data?
     public class LeadScreenDbContext : DbContext, IDbContext
     {
         public LeadScreenDbContext(DbContextOptions options) : base(options)
         {
-            
+            EnsureCreated();
         }
-
-        public DbSet<LeadEntity> Leads { get; set; }     
+        public DbSet<LeadEntity> Leads { get; set; }
         public DbSet<SubAreaEntity> SubAreas { get; set; }
 
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<LeadEntity>()                
+            modelBuilder.Entity<LeadEntity>()
                 .HasOne(e => e.SubArea)
                 .WithMany(e => e.Leads)
                 .HasForeignKey(x => x.SubAreaId)
@@ -31,7 +30,7 @@ namespace LeadScreenAssignment.Persistence
 
             modelBuilder
                 .Entity<LeadEntity>()
-                .Property(e=>e.Name)
+                .Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsRequired();
 
@@ -49,11 +48,17 @@ namespace LeadScreenAssignment.Persistence
 
 
             base.OnModelCreating(modelBuilder);
+            
         }
 
         IDbSet<T> IDbContext.Set<T>()
         {
             return EfDbSet<T>.Instance(this.Set<T>());
+        }
+
+        public void EnsureCreated()
+        {
+            Database.EnsureCreated();
         }
     }
 }

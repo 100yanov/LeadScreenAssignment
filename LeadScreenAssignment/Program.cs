@@ -1,9 +1,9 @@
 using LeadScreenAssignment.Business;
+using LeadScreenAssignment.Persistence;
+using LeadScreenAssignment.Persistence.Interfaces;
 using SimpleInjector;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -13,13 +13,11 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
-//var container = new Container();
-//builder.Services.AddSimpleInjector(container);
 
-var businessIoCConfig = new BusinessIoCConfig(/*container,*/ builder.Services, builder.Configuration); //TODO: make static
+
+var businessIoCConfig = new BusinessIoCConfig(builder.Services, builder.Configuration); //TODO: make static
 businessIoCConfig.AddServices();
 businessIoCConfig.RegisterDependencies();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -27,7 +25,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//app.Services.UseSimpleInjector(container);
+
+using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
+    
+    DbInitializer.Seed(uow);
+}
 
 app.UseHttpsRedirection();
 

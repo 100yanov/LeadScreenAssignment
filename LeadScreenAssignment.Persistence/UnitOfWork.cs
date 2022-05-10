@@ -1,12 +1,5 @@
-﻿using LeadScreenAssignment.Core.Entities;
-using LeadScreenAssignment.Data;
+﻿using LeadScreenAssignment.Data;
 using LeadScreenAssignment.Persistence.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LeadScreenAssignment.Persistence
 {
@@ -27,11 +20,12 @@ namespace LeadScreenAssignment.Persistence
 
         public ISubAreaRepository SubAreas { get; }
 
-        public int Complete()
-        {         
-            return this.context.SaveChanges();
-        }
+        public int Complete()=> this.context.SaveChanges();
+       
 
-        public void Dispose() => this.context.Dispose();
+        public void Dispose()
+        {
+          //  this.context.Dispose();
+        }
     }
 }

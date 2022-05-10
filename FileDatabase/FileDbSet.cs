@@ -59,7 +59,11 @@ namespace FileDatabase
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var item in entities)
+            {
+                item.Id= Guid.NewGuid();
+            };
+            this.set.AddRange(entities);
         }
 
         public TEntity Find(Guid id)

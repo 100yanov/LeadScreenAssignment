@@ -77,6 +77,12 @@ namespace FileDatabase
         {
             //TODO:
         }
+
+        public void EnsureCreated()
+        {
+            //TODO:
+            //Handled in constructor
+        }
     }
 
 }
